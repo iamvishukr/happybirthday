@@ -8,13 +8,11 @@
   <title>Happy Birthday, Tikku! 💖</title>
   <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400" rel="stylesheet">
   <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
   <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
-  <audio autoplay>
-    <source src="" type="audio/mpeg">
-  </audio>
   <div class="container">
     <div class="one">
       <h1 class="one">
@@ -24,7 +22,7 @@
       <p class="two" data-node-name="greetingText">Just saying your name makes my heart smile, Tikku ❤️</p>
     </div>
     <div class="three">
-      <p data-node-name="text1">It’s your special day! 🎉</p>
+      <p data-node-name="text1">It's your special day! 🎉</p>
     </div>
     <div class="four">
       <div class="text-box">
@@ -46,10 +44,34 @@
       <p class="idea-6">
         <span data-node-name="bigTextPart1">S</span>
         <span data-node-name="bigTextPart2">O</span>
-        <!-- <span data-node-name="bigTextPart3">V</span> -->
-        <!-- <span data-node-name="bigTextPart4">E</span> -->
       </p>
     </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var sound = new Howl({
+          src: ['./img/happy_birthday.mp3'],
+          autoplay: false,
+          loop: false,
+          volume: 1.0
+        });
+
+        function checkAndPlayAudio() {
+          var sElement = document.querySelector('[data-node-name="bigTextPart1"]');
+          var oElement = document.querySelector('[data-node-name="bigTextPart2"]');
+          
+          if (sElement && oElement && 
+              sElement.textContent === 'S' && 
+              oElement.textContent === 'O' && 
+              sElement.offsetParent !== null && 
+              oElement.offsetParent !== null) {
+            sound.play();
+            clearInterval(checkInterval);
+          }
+        }
+
+        var checkInterval = setInterval(checkAndPlayAudio, 100);
+      });
+    </script>
     <div class="six">
       <img src="img/tikku.png" alt="" class="lydia-dp" data-node-name="imagePath">
       <img src="img/hat.svg" alt="" class="hat">
@@ -126,7 +148,7 @@
     </div>
     <div class="nine">
       <p data-node-name="outroText">Alright, my love, let me know if this made your day brighter. 💕</p>
-      <p id="replay" data-node-name="replayText">Or click here if you’d like to relive the magic. ✨</p>
+      <p id="replay" data-node-name="replayText">Or click here if you'd like to relive the magic. ✨</p>
       <p class="last-smile" data-node-name="outroSmiley">😊</p>
     </div>
   </div>
